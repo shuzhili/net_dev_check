@@ -1,0 +1,1 @@
+pyinstaller -i logo.ico -w -F net_dev_check.py autocheck_net.py ./logo.ico
