@@ -9,7 +9,11 @@
 
 import wx
 import wx.xrc
+import wx.adv
+import wx.lib.calendar
 import autocheck_net
+from dateTime import countone
+
 from deviceType import Device
 
 
@@ -25,7 +29,7 @@ class MyFrame2(wx.Frame):
 
         self.SetSizeHints(wx.DefaultSize, wx.DefaultSize)
 
-        self.icon1 = wx.Icon(name="logo.ico", type=wx.BITMAP_TYPE_ICO)
+        self.icon1 = wx.Icon(name="logo2.ico", type=wx.BITMAP_TYPE_ICO)
         self.SetIcon(self.icon1)
 
         bottomStatusBar = self.CreateStatusBar()
@@ -52,20 +56,10 @@ class MyFrame2(wx.Frame):
 
         bSizer3.Add(bSizer4, 0, 1, 5)
 
-        bSizer9 = wx.BoxSizer(wx.VERTICAL)
-
-        self.import_config = wx.Button(self, wx.ID_ANY, u"批量导入", wx.DefaultPosition, wx.DefaultSize, 0)
-        bSizer9.Add(self.import_config, 1, wx.ALL, 5)
-
-        self.clear = wx.Button(self, wx.ID_ANY, u"清空", wx.DefaultPosition, wx.DefaultSize, 0)
-        bSizer9.Add(self.clear, 1, wx.ALL, 5)
-
-        bSizer3.Add(bSizer9, 0, 1, 5)
-
-        self.config_content = wx.TextCtrl(self, wx.ID_ANY, wx.EmptyString, wx.DefaultPosition, wx.Size(200, 100),
-                                          style=wx.TE_MULTILINE)
-
-        bSizer3.Add(self.config_content, 1, wx.EXPAND, 5)
+        # 时间选择
+        self.pnl = wx.TextCtrl(self, wx.ID_ANY, wx.EmptyString, wx.DefaultPosition, wx.DefaultSize, 0)
+        bSizer3.Add(self.pnl, 1, wx.ALL, 5)
+        # 时间选择
 
         bSizer1.Add(bSizer3, 1, wx.EXPAND, 5)
 
@@ -120,8 +114,6 @@ class MyFrame2(wx.Frame):
         self.cisco_radioBtn.Bind(wx.EVT_RADIOBUTTON, self.cisco_click)
         self.ruijie_radioBtn.Bind(wx.EVT_RADIOBUTTON, self.ruijie_click)
         self.hw_radioBtn.Bind(wx.EVT_RADIOBUTTON, self.hw_click)
-        self.import_config.Bind(wx.EVT_BUTTON, self.import_cfg_click)
-        self.clear.Bind(wx.EVT_BUTTON, self.clear_cfg_click)
         self.import_ip_bt.Bind(wx.EVT_BUTTON, self.import_ip_click)
         self.clear_ip_path_bt.Bind(wx.EVT_BUTTON, self.clear_ip_path_click)
         self.telnet_bt.Bind(wx.EVT_RADIOBUTTON, self.telnet_click)
@@ -133,42 +125,32 @@ class MyFrame2(wx.Frame):
     isSSH = 0
     isTelnet = 0
     dev_Type = 1
-    devCfgPath = ""
     ipCfgPath = ""
 
+    # 窗口销毁监听
     def __del__(self):
+        print("dellll")
+
         pass
 
     # Virtual event handlers, overide them in your derived class
     def h3c_click(self, event):
-        dev_Type = deviceType.Device.H3C
+        dev_Type = Device.H3C
 
     def cisco_click(self, event):
-        dev_Type = deviceType.Device.CISCO
+        dev_Type = Device.CISCO
 
     def ruijie_click(self, event):
-        dev_Type = deviceType.Device.RUIJIE
+        dev_Type = Device.RUIJIE
 
     def hw_click(self, event):
-        dev_Type = deviceType.Device.HW
-
-    def import_cfg_click(self, event):
-        dlg = wx.FileDialog(self, u'选择要打开的txt文件', style=wx.DD_DEFAULT_STYLE)
-        if dlg.ShowModal() == wx.ID_OK:
-            devCfgPath = dlg.GetPath()
-            self.read_dev_config(dlg.GetPath())
-            dlg.Destroy()
-
-    def clear_cfg_click(self, event):
-        self.config_content.SetValue("")
+        dev_Type = Device.HW
 
     def import_ip_click(self, event):
         dlg = wx.FileDialog(self, u'选择要打开的txt文件', style=wx.DD_DEFAULT_STYLE)
         if dlg.ShowModal() == wx.ID_OK:
-            file = open(dlg.GetPath(), encoding="utf-8")
             self.input_ip_tv.SetValue(dlg.GetPath())
             ipCfgPath = dlg.GetPath()
-            file.close()
             dlg.Destroy()
 
     def clear_ip_path_click(self, event):
@@ -182,10 +164,10 @@ class MyFrame2(wx.Frame):
         self.isSSH = 1
 
     def start_backup_click(self, event):
-        autocheck_net.chech_dev(self.input_ip_tv.GetValue(), self.devCfgPath, self.isSSH, self.isTelnet, dev_Type)
+        autocheck_net.chech_dev(self.input_ip_tv.GetValue(), self.isSSH, self.isTelnet, self.dev_Type)
 
     def time_task_click(self, event):
-        event.Skip()
+        countone(self)
 
     def read_dev_config(self, path):
         f = open(path, "rb")

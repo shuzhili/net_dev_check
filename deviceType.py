@@ -1,7 +1,7 @@
-import enum
+from enum import Enum
 
 
-class Device(enum):
+class Device(Enum):
     H3C = 1
     CISCO = 2
     RUIJIE = 3

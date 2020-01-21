@@ -22,35 +22,24 @@ from deviceType import Device
 Current_cwd = os.path.abspath(os.path.dirname(__file__))
 LogDir = Current_cwd + r'\log'
 LogDirMailToday = LogDir + '\\' + time.strftime('%Y%m%d')  # 以日期创建目录
+
 cmdfile_CISCO = Current_cwd + r'\etc\\CMD_Cisco.ini'
 cmdfile_HW = Current_cwd + r'\etc\\CMD_HW.ini'
-NetworkAddr_FILE = Current_cwd + r'\etc\\Network_Addr.ini'
-Password_File = Current_cwd + r'\etc\\password.ini'
+cmdfile_RUIJIE = Current_cwd + r'\etc\\CMD_Ruijie.ini'
+
 SMTP_Sever = 'smtp.139.com'
 Mail_List_File = Current_cwd + r'\etc\\Mail_list.ini'
+
 ZipFileDir = LogDirMailToday
 ZIPFILE = u'BOSS Network check' + os.path.basename(LogDirMailToday) + '.zip'
+
 os.chdir(Current_cwd)
 
-my_dev_cfg_path = ""
 ip_cfg_path = ""
-
 m_dev_type = 1
 
 
 # ---------------------------------------------------------
-def Read_device_config(path):
-    f = open(path, "rb")
-    lines = f.readlines()
-    print(type(lines))
-    data = []
-    for line in lines:
-        device_cfg = str(line, encoding="utf-8").strip().split(" ")
-        data.append(device_cfg)
-    f.close()
-    print(*data)
-    return data
-
 
 def Read_IP_UserName_Pwd(path):
     f = open(path, "rb")
@@ -58,7 +47,7 @@ def Read_IP_UserName_Pwd(path):
     print(type(lines))
     data = []
     for line in lines:
-        ip_name_pwd = str(line, encoding="utf-8").strip().split(" ")
+        ip_name_pwd = str(line, encoding='unicode_escape').strip().split(" ")
         data.append(ip_name_pwd)
     f.close()
     print(*data)
@@ -142,11 +131,9 @@ def AutoCheck_ssh(Host, UserName, PassWord, DeviceName):
         time.sleep(0.5)
         # channel.sendall(SuperPass + '\n')
         if DeviceName.find('3750') != -1:
-            # cmdfile = open(cmdfile_CISCO)
-            cmdfile = open(my_dev_cfg_path)
+            cmdfile = open(cmdfile_CISCO)
         else:
-            # cmdfile = open(cmdfile_HW)
-            cmdfile = open(my_dev_cfg_path)
+            cmdfile = open(cmdfile_HW)
         for cmd in cmdfile:
             # print cmd
             channel.sendall(cmd)
@@ -184,18 +171,16 @@ def AutoCheck_telnet(Host, UserName, PassWord, DeviceName):
 
     # pdb.set_trace()
     if DeviceType.upper().find('Huawei'.upper()) != -1 or DeviceType.upper().find('H3C'.upper()) != -1:  # 华为或者华三设备
-        # cmdfile = open(cmdfile_HW)  # 命令列表
-        cmdfile = open(my_dev_cfg_path)
+        cmdfile = open(cmdfile_HW)  # 命令列表
         tn.write('super'.encode() + '\n')
-    elif DeviceName == deviceType.Device.CISCO:  # 思科设备
-        # cmdfile = open(cmdfile_CISCO)  # 命令列表
-        cmdfile = open(my_dev_cfg_path)
+    elif DeviceName == Device.CISCO:  # 思科设备
+        cmdfile = open(cmdfile_CISCO)  # 命令列表
         tn.write('enable'.encode() + '\n')
-    elif DeviceName == deviceType.Device.RUIJIE:
-        cmdfile = open(my_dev_cfg_path)
+    elif DeviceName == Device.RUIJIE:
+        cmdfile = open(cmdfile_RUIJIE)
         tn.write('enable'.encode() + '\n')
     else:
-        cmdfile = open(my_dev_cfg_path)
+        cmdfile = open(cmdfile_HW)
         tn.write('enable'.encode() + '\n')
 
     for cmd in cmdfile:  # 输入列表的命令
@@ -223,8 +208,10 @@ Zip_File()
 def Zip_File():
     os.chdir(LogDir)
     LogZip = zipfile.ZipFile(ZIPFILE, 'w', zipfile.ZIP_DEFLATED)  # 压缩日志
+
     for filenames in os.walk(ZipFileDir):
         for filename in filenames[-1]:
+            print(filename)
             LogZip.write(os.path.join(os.path.basename(LogDirMailToday) + '\\' + filename))
             os.remove(LogDirMailToday + '\\' + filename)  # 压缩完成后删除文件，以便后续删除原始目录
     LogZip.close()
@@ -266,25 +253,29 @@ def Send_Mail(success_count, failed_count, Mail_User, Mail_Pwd):
     s.close()
 
 
-def chech_dev(path, dev_cfg_path, isSSh, isTelnet, dev_type):
+def chech_dev(path, isSSh, isTelnet, dev_type):
     ip_cfg_path = path
-    my_dev_cfg_path = dev_cfg_path
     m_dev_type = dev_type
+
+    print(ip_cfg_path)
+    print(my_dev_cfg_path)
+    print(m_dev_type)
+
     success_count = 0
     failed_count = 0
 
-    dev_cfg_data = Read_device_config(dev_cfg_path)
     data = Read_IP_UserName_Pwd(ip_cfg_path)
 
     if not os.path.exists(LogDirMailToday):
         os.makedirs(LogDirMailToday)
+
     for ip_name_pwd in data:
         success_count_ssh = 0
         success_count_telnet = 0
         failed_count_ssh = 0
         failed_count_telnet = 0
         failed_count_to = 0
-
+        print(ip_name_pwd)
         ip = ip_name_pwd[0]
         name = ip_name_pwd[1]
         pwd = ip_name_pwd[2]

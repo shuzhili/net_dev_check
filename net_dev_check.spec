@@ -3,7 +3,7 @@
 block_cipher = None
 
 
-a = Analysis(['net_dev_check.py', 'autocheck_net.py'],
+a = Analysis(['net_dev_check.py', 'autocheck_net.py', 'deviceType.py'],
              pathex=['E:\\PycharmProjects\\untitled1'],
              binaries=[],
              datas=[],
@@ -30,4 +30,4 @@ exe = EXE(pyz,
           upx=True,
           upx_exclude=[],
           runtime_tmpdir=None,
-          console=False , icon='logo.ico')
+          console=False )
