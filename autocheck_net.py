@@ -258,7 +258,6 @@ def chech_dev(path, isSSh, isTelnet, dev_type):
     m_dev_type = dev_type
 
     print(ip_cfg_path)
-    print(my_dev_cfg_path)
     print(m_dev_type)
 
     success_count = 0
@@ -280,11 +279,11 @@ def chech_dev(path, isSSh, isTelnet, dev_type):
         name = ip_name_pwd[1]
         pwd = ip_name_pwd[2]
 
-        (Port) = Port_check(ip, name, pwd)
+        #(Port) = Port_check(ip, name, pwd)
 
-        if Port == 22:
+        if isSSh:
             (success_count_ssh, failed_count_ssh) = AutoCheck_ssh(ip, name, pwd, m_dev_type)
-        elif Port == 23:
+        elif isTelnet:
             (success_count_telnet, failed_count_telnet) = AutoCheck_telnet(ip, name, pwd, m_dev_type)
         else:
             failed_count_to = + 1
@@ -293,5 +292,5 @@ def chech_dev(path, isSSh, isTelnet, dev_type):
     Zip_File()
     print("success:%s" % success_count)
     print("fail:%s" % failed_count)
-    Send_Mail(success_count, failed_count, Mail_User, Mail_Pwd)
+    #Send_Mail(success_count, failed_count, Mail_User, Mail_Pwd)
 # --------------------------------------------------------------------------

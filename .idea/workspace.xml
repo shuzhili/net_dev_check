@@ -2,8 +2,9 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="df09885c-e8c7-4702-9826-fa2f62d130ad" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/dateTime.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/etc/CMD_Ruijie.ini" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/dist/logo2.ico" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/dist/net_dev_check.exe" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/time_task.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/autocheck_net.py" beforeDir="false" afterPath="$PROJECT_DIR$/autocheck_net.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/build/net_dev_check/Analysis-00.toc" beforeDir="false" afterPath="$PROJECT_DIR$/build/net_dev_check/Analysis-00.toc" afterDir="false" />
@@ -13,9 +14,9 @@
       <change beforePath="$PROJECT_DIR$/build/net_dev_check/PYZ-00.pyz" beforeDir="false" afterPath="$PROJECT_DIR$/build/net_dev_check/PYZ-00.pyz" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/build/net_dev_check/PYZ-00.toc" beforeDir="false" afterPath="$PROJECT_DIR$/build/net_dev_check/PYZ-00.toc" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/build/net_dev_check/base_library.zip" beforeDir="false" afterPath="$PROJECT_DIR$/build/net_dev_check/base_library.zip" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/net_dev_check/warn-net_dev_check.txt" beforeDir="false" afterPath="$PROJECT_DIR$/build/net_dev_check/warn-net_dev_check.txt" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/build/net_dev_check/xref-net_dev_check.html" beforeDir="false" afterPath="$PROJECT_DIR$/build/net_dev_check/xref-net_dev_check.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/deviceType.py" beforeDir="false" afterPath="$PROJECT_DIR$/deviceType.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/logo.ico" beforeDir="false" afterPath="$PROJECT_DIR$/logo2.ico" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/etc/CMD_HW.ini" beforeDir="false" afterPath="$PROJECT_DIR$/etc/CMD_HW.ini" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/net_dev_check.py" beforeDir="false" afterPath="$PROJECT_DIR$/net_dev_check.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/net_dev_check.spec" beforeDir="false" afterPath="$PROJECT_DIR$/net_dev_check.spec" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/readme.txt" beforeDir="false" afterPath="$PROJECT_DIR$/readme.txt" afterDir="false" />
@@ -135,7 +136,9 @@
       <workItem from="1579396787042" duration="4111000" />
       <workItem from="1579402690013" duration="17491000" />
       <workItem from="1579483124814" duration="15209000" />
-      <workItem from="1579569828778" duration="3787000" />
+      <workItem from="1579569828778" duration="15887000" />
+      <workItem from="1579596055885" duration="4064000" />
+      <workItem from="1579755680869" duration="7657000" />
     </task>
     <task id="LOCAL-00001" summary="add">
       <created>1579499826095</created>
@@ -144,7 +147,14 @@
       <option name="project" value="LOCAL" />
       <updated>1579499826096</updated>
     </task>
-    <option name="localTasksCounter" value="2" />
+    <task id="LOCAL-00002" summary="add">
+      <created>1579575529357</created>
+      <option name="number" value="00002" />
+      <option name="presentableId" value="LOCAL-00002" />
+      <option name="project" value="LOCAL" />
+      <updated>1579575529357</updated>
+    </task>
+    <option name="localTasksCounter" value="3" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -163,46 +173,50 @@
       <screen x="0" y="0" width="1366" height="728" />
     </state>
     <state x="413" y="111" key="#com.intellij.refactoring.safeDelete.UnsafeUsagesDialog/0.0.1366.728@0.0.1366.728" timestamp="1579416370188" />
-    <state x="283" y="0" key="CommitChangelistDialog2" timestamp="1579499810085">
+    <state x="283" y="0" key="CommitChangelistDialog2" timestamp="1579575519484">
       <screen x="0" y="0" width="1366" height="728" />
     </state>
-    <state x="283" y="0" key="CommitChangelistDialog2/0.0.1366.728@0.0.1366.728" timestamp="1579499810085" />
+    <state x="283" y="0" key="CommitChangelistDialog2/0.0.1366.728@0.0.1366.728" timestamp="1579575519484" />
     <state x="460" y="105" key="FileChooserDialogImpl" timestamp="1579251910334">
       <screen x="0" y="0" width="1366" height="728" />
     </state>
     <state x="460" y="105" key="FileChooserDialogImpl/0.0.1366.728@0.0.1366.728" timestamp="1579251910334" />
-    <state width="1323" height="141" key="GridCell.Tab.0.bottom" timestamp="1579575325104">
+    <state width="1323" height="175" key="GridCell.Tab.0.bottom" timestamp="1579766173289">
       <screen x="0" y="0" width="1366" height="728" />
     </state>
-    <state width="1323" height="141" key="GridCell.Tab.0.bottom/0.0.1366.728@0.0.1366.728" timestamp="1579575325104" />
-    <state width="1323" height="141" key="GridCell.Tab.0.center" timestamp="1579575325104">
+    <state width="1323" height="175" key="GridCell.Tab.0.bottom/0.0.1366.728@0.0.1366.728" timestamp="1579766173289" />
+    <state width="1323" height="175" key="GridCell.Tab.0.center" timestamp="1579766173289">
       <screen x="0" y="0" width="1366" height="728" />
     </state>
-    <state width="1323" height="141" key="GridCell.Tab.0.center/0.0.1366.728@0.0.1366.728" timestamp="1579575325104" />
-    <state width="1323" height="141" key="GridCell.Tab.0.left" timestamp="1579575325104">
+    <state width="1323" height="175" key="GridCell.Tab.0.center/0.0.1366.728@0.0.1366.728" timestamp="1579766173289" />
+    <state width="1323" height="175" key="GridCell.Tab.0.left" timestamp="1579766173289">
       <screen x="0" y="0" width="1366" height="728" />
     </state>
-    <state width="1323" height="141" key="GridCell.Tab.0.left/0.0.1366.728@0.0.1366.728" timestamp="1579575325104" />
-    <state width="1323" height="141" key="GridCell.Tab.0.right" timestamp="1579575325104">
+    <state width="1323" height="175" key="GridCell.Tab.0.left/0.0.1366.728@0.0.1366.728" timestamp="1579766173289" />
+    <state width="1323" height="175" key="GridCell.Tab.0.right" timestamp="1579766173289">
       <screen x="0" y="0" width="1366" height="728" />
     </state>
-    <state width="1323" height="141" key="GridCell.Tab.0.right/0.0.1366.728@0.0.1366.728" timestamp="1579575325104" />
+    <state width="1323" height="175" key="GridCell.Tab.0.right/0.0.1366.728@0.0.1366.728" timestamp="1579766173289" />
+    <state x="519" y="75" key="RollbackChangesDialog" timestamp="1579590550432">
+      <screen x="0" y="0" width="1366" height="728" />
+    </state>
+    <state x="519" y="75" key="RollbackChangesDialog/0.0.1366.728@0.0.1366.728" timestamp="1579590550432" />
     <state x="184" y="6" key="SettingsEditor" timestamp="1579251924001">
       <screen x="0" y="0" width="1366" height="728" />
     </state>
     <state x="184" y="6" key="SettingsEditor/0.0.1366.728@0.0.1366.728" timestamp="1579251924001" />
-    <state x="275" y="97" key="Vcs.Push.Dialog.v2" timestamp="1579416051936">
+    <state x="275" y="97" key="Vcs.Push.Dialog.v2" timestamp="1579575541848">
       <screen x="0" y="0" width="1366" height="728" />
     </state>
-    <state x="275" y="97" key="Vcs.Push.Dialog.v2/0.0.1366.728@0.0.1366.728" timestamp="1579416051936" />
+    <state x="275" y="97" key="Vcs.Push.Dialog.v2/0.0.1366.728@0.0.1366.728" timestamp="1579575541848" />
     <state x="92" y="92" width="1182" height="544" maximized="true" key="com.intellij.history.integration.ui.views.FileHistoryDialog" timestamp="1579417992825">
       <screen x="0" y="0" width="1366" height="728" />
     </state>
     <state x="92" y="92" width="1182" height="544" maximized="true" key="com.intellij.history.integration.ui.views.FileHistoryDialog/0.0.1366.728@0.0.1366.728" timestamp="1579417992825" />
-    <state x="0" y="0" key="com.intellij.ide.util.TipDialog" timestamp="1579569860619">
+    <state x="0" y="0" key="com.intellij.ide.util.TipDialog" timestamp="1579755721398">
       <screen x="0" y="0" width="1366" height="728" />
     </state>
-    <state x="0" y="0" key="com.intellij.ide.util.TipDialog/0.0.1366.728@0.0.1366.728" timestamp="1579569860619" />
+    <state x="0" y="0" key="com.intellij.ide.util.TipDialog/0.0.1366.728@0.0.1366.728" timestamp="1579755721398" />
     <state x="475" y="281" key="com.intellij.openapi.vcs.update.UpdateOrStatusOptionsDialogupdate-v2" timestamp="1579416055774">
       <screen x="0" y="0" width="1366" height="728" />
     </state>
@@ -213,6 +227,6 @@
     <state x="405" y="276" key="vcs.readOnlyHandler.ReadOnlyStatusDialog/0.0.1366.728@0.0.1366.728" timestamp="1579570256830" />
   </component>
   <component name="com.intellij.coverage.CoverageDataManagerImpl">
-    <SUITE FILE_PATH="coverage/untitled1$net_dev_check.coverage" NAME="net_dev_check Coverage Results" MODIFIED="1579575325087" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
+    <SUITE FILE_PATH="coverage/untitled1$net_dev_check.coverage" NAME="net_dev_check Coverage Results" MODIFIED="1579766173275" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
   </component>
 </project>

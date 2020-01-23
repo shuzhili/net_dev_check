@@ -12,7 +12,7 @@ import wx.xrc
 import wx.adv
 import wx.lib.calendar
 import autocheck_net
-from dateTime import countone
+# from dateTime import countone
 
 from deviceType import Device
 
@@ -25,86 +25,134 @@ class MyFrame2(wx.Frame):
 
     def __init__(self, parent):
         wx.Frame.__init__(self, parent, id=wx.ID_ANY, title=u"昆仑银行网络自动运维工具", pos=wx.DefaultPosition,
-                          size=wx.Size(400, 300), style=wx.DEFAULT_FRAME_STYLE | wx.TAB_TRAVERSAL)
+                          size=wx.Size(400, 400), style=wx.DEFAULT_FRAME_STYLE | wx.TAB_TRAVERSAL)
 
         self.SetSizeHints(wx.DefaultSize, wx.DefaultSize)
-
+        # 设置图标
         self.icon1 = wx.Icon(name="logo2.ico", type=wx.BITMAP_TYPE_ICO)
         self.SetIcon(self.icon1)
+        # 设置图标
 
+        # 底部状态栏
         bottomStatusBar = self.CreateStatusBar()
         self.SetStatusBar(bottomStatusBar)
         self.SetStatusText(u"总行网络团队提供")
+        # 底部状态栏
 
-        bSizer1 = wx.BoxSizer(wx.VERTICAL)
+        frame_bSizer = wx.BoxSizer(wx.VERTICAL)
 
-        bSizer3 = wx.BoxSizer(wx.HORIZONTAL)
+        dev_bSizer = wx.BoxSizer(wx.HORIZONTAL)
 
-        bSizer4 = wx.BoxSizer(wx.VERTICAL)
+        # 设备选择
+        dev_select_bSizer = wx.BoxSizer(wx.VERTICAL)
 
         self.h3c_radioBtn = wx.RadioButton(self, wx.ID_ANY, u"h3c", wx.DefaultPosition, wx.DefaultSize, 0)
-        bSizer4.Add(self.h3c_radioBtn, 1, wx.ALL, 5)
+        dev_select_bSizer.Add(self.h3c_radioBtn, 1, wx.ALL, 5)
 
         self.cisco_radioBtn = wx.RadioButton(self, wx.ID_ANY, u"cisco", wx.DefaultPosition, wx.DefaultSize, 0)
-        bSizer4.Add(self.cisco_radioBtn, 1, wx.ALL, 5)
+        dev_select_bSizer.Add(self.cisco_radioBtn, 1, wx.ALL, 5)
 
         self.ruijie_radioBtn = wx.RadioButton(self, wx.ID_ANY, u"锐捷", wx.DefaultPosition, wx.DefaultSize, 0)
-        bSizer4.Add(self.ruijie_radioBtn, 1, wx.ALL, 5)
+        dev_select_bSizer.Add(self.ruijie_radioBtn, 1, wx.ALL, 5)
 
         self.hw_radioBtn = wx.RadioButton(self, wx.ID_ANY, u"华为", wx.DefaultPosition, wx.DefaultSize, 0)
-        bSizer4.Add(self.hw_radioBtn, 1, wx.ALL, 5)
+        dev_select_bSizer.Add(self.hw_radioBtn, 1, wx.ALL, 5)
+        # 设备选择
 
-        bSizer3.Add(bSizer4, 0, 1, 5)
+        dev_bSizer.Add(dev_select_bSizer, 0, 1, 5)
 
-        # 时间选择
-        self.pnl = wx.TextCtrl(self, wx.ID_ANY, wx.EmptyString, wx.DefaultPosition, wx.DefaultSize, 0)
-        bSizer3.Add(self.pnl, 1, wx.ALL, 5)
-        # 时间选择
+        # ip 用户名 密码展示
+        self.ip_name_pwd_txt = wx.TextCtrl(self, wx.ID_ANY, wx.EmptyString, pos=(80, 20), size=(250, 120),
+                                           style=wx.TE_MULTILINE | wx.BORDER_SIMPLE)
 
-        bSizer1.Add(bSizer3, 1, wx.EXPAND, 5)
+        self.ip_name_pwd_txt.Hide()
+
+        dev_bSizer.Add(self.ip_name_pwd_txt, 1, wx.EXPAND, 5)
+        # ip 用户名 密码展示
+
+        frame_bSizer.Add(dev_bSizer, 1, wx.EXPAND, 5)
 
         bSizer10 = wx.BoxSizer(wx.VERTICAL)
 
-        bSizer11 = wx.BoxSizer(wx.HORIZONTAL)
+        # //////////////////////设备IP地址 添加 清空
+        ip_bSizer = wx.BoxSizer(wx.HORIZONTAL)
 
         self.m_staticText2 = wx.StaticText(self, wx.ID_ANY, u"设备IP地址：", wx.DefaultPosition, wx.DefaultSize, 0)
         self.m_staticText2.Wrap(-1)
-        bSizer11.Add(self.m_staticText2, 0, wx.ALL, 5)
+        ip_bSizer.Add(self.m_staticText2, 0, wx.ALL, 5)
 
         self.input_ip_tv = wx.TextCtrl(self, wx.ID_ANY, wx.EmptyString, wx.DefaultPosition, wx.DefaultSize, 0)
-        bSizer11.Add(self.input_ip_tv, 1, wx.ALL, 5)
+        ip_bSizer.Add(self.input_ip_tv, 1, wx.ALL, 5)
 
         self.import_ip_bt = wx.Button(self, wx.ID_ANY, u"添加", wx.DefaultPosition, wx.DefaultSize, 0)
-        bSizer11.Add(self.import_ip_bt, 0, wx.ALL, 5)
+        ip_bSizer.Add(self.import_ip_bt, 0, wx.ALL, 5)
 
         self.clear_ip_path_bt = wx.Button(self, wx.ID_ANY, u"清空", wx.DefaultPosition, wx.DefaultSize, 0)
-        bSizer11.Add(self.clear_ip_path_bt, 0, wx.ALL, 5)
+        ip_bSizer.Add(self.clear_ip_path_bt, 0, wx.ALL, 5)
 
-        bSizer10.Add(bSizer11, 0, wx.EXPAND, 5)
+        bSizer10.Add(ip_bSizer, 0, wx.EXPAND, 5)
+        # //////////////////////设备IP地址 添加 清空
 
-        bSizer12 = wx.BoxSizer(wx.HORIZONTAL)
+        # //////////////////////telnet ssh
+        tel_ssh_bSizer = wx.BoxSizer(wx.HORIZONTAL)
 
         self.telnet_bt = wx.RadioButton(self, wx.ID_ANY, u"telnet", wx.DefaultPosition, wx.DefaultSize, wx.RB_GROUP)
-        bSizer12.Add(self.telnet_bt, 1, wx.ALL, 5)
+        tel_ssh_bSizer.Add(self.telnet_bt, 1, wx.ALL, 5)
 
         self.ssh_bt = wx.RadioButton(self, wx.ID_ANY, u"ssh", wx.DefaultPosition, wx.DefaultSize, 0)
-        bSizer12.Add(self.ssh_bt, 1, wx.ALL, 5)
+        tel_ssh_bSizer.Add(self.ssh_bt, 1, wx.ALL, 5)
 
-        bSizer10.Add(bSizer12, 0, wx.EXPAND, 5)
+        bSizer10.Add(tel_ssh_bSizer, 0, wx.EXPAND, 5)
+        # //////////////////////telnet ssh
 
-        bSizer13 = wx.BoxSizer(wx.HORIZONTAL)
+        # 日期选择
+        # data_select_bSizer = wx.BoxSizer(wx.HORIZONTAL)
+        #
+        # self.edtDateb = wx.adv.DatePickerCtrl(self, id=-1, size=(90, 40), pos=(90, 30),
+        #                                       style=wx.adv.DP_DROPDOWN | wx.adv.DP_SHOWCENTURY)
+        # self.Bind(wx.adv.EVT_DATE_CHANGED, self.OnCalSelChangedb, self.edtDateb)
+        #
+        # font = wx.Font(14, wx.DEFAULT, wx.NORMAL, wx.BOLD, True)
+        # self.yearInput1 = wx.TextCtrl(self, -1, u'', pos=(190, 40), size=(60, -1))
+        # self.yearInput1.SetForegroundColour('gray')
+        # self.yearInput1.SetFont(font)
+        #
+        # data_select_bSizer.Add(self.edtDateb, 1, wx.ALL, 5)
+        # data_select_bSizer.Add(self.yearInput1, 1, wx.ALL, 5)
+        # bSizer10.Add(data_select_bSizer, 0, wx.EXPAND, 5)
+        # 日期选择
+
+        # 时间选择
+        # time_select_bSizer = wx.BoxSizer(wx.HORIZONTAL)
+        #
+        # self.edtTimeb = wx.adv.TimePickerCtrl(self, id=-1, size=(90, 40), pos=(90, 30), style=wx.adv.DP_DEFAULT)
+        # self.Bind(wx.adv.EVT_TIME_CHANGED, self.OnTimeSelChangedb, self.edtTimeb)
+        #
+        # font = wx.Font(14, wx.DEFAULT, wx.NORMAL, wx.BOLD, True)
+        # self.timeInput = wx.TextCtrl(self, -1, u'', pos=(190, 40), size=(60, -1))
+        # self.timeInput.SetForegroundColour('gray')
+        # self.timeInput.SetFont(font)
+        #
+        # time_select_bSizer.Add(self.edtTimeb, 1, wx.ALL, 5)
+        # time_select_bSizer.Add(self.timeInput, 1, wx.ALL, 5)
+        # bSizer10.Add(time_select_bSizer, 0, wx.EXPAND, 5)
+        # 时间选择
+
+        # //////////////////////开始备份定时任务
+        begin_time_bSizer = wx.BoxSizer(wx.HORIZONTAL)
 
         self.begin_backup_bt = wx.Button(self, wx.ID_ANY, u"开始备份", wx.DefaultPosition, wx.DefaultSize, 0)
-        bSizer13.Add(self.begin_backup_bt, 1, wx.ALL, 5)
+        begin_time_bSizer.Add(self.begin_backup_bt, 1, wx.ALL, 5)
 
         self.time_bt = wx.Button(self, wx.ID_ANY, u"定时任务", wx.DefaultPosition, wx.DefaultSize, 0)
-        bSizer13.Add(self.time_bt, 1, wx.ALL, 5)
+        begin_time_bSizer.Add(self.time_bt, 1, wx.ALL, 5)
+        # //////////////////////开始备份定时任务
 
-        bSizer10.Add(bSizer13, 1, wx.EXPAND, 5)
+        bSizer10.Add(begin_time_bSizer, 1, wx.EXPAND, 5)
 
-        bSizer1.Add(bSizer10, 1, wx.EXPAND, 5)
+        frame_bSizer.Add(bSizer10, 1, wx.EXPAND, 5)
 
-        self.SetSizer(bSizer1)
+        self.SetSizer(frame_bSizer)
         self.Layout()
 
         self.Centre(wx.BOTH)
@@ -130,7 +178,6 @@ class MyFrame2(wx.Frame):
     # 窗口销毁监听
     def __del__(self):
         print("dellll")
-
         pass
 
     # Virtual event handlers, overide them in your derived class
@@ -151,11 +198,14 @@ class MyFrame2(wx.Frame):
         if dlg.ShowModal() == wx.ID_OK:
             self.input_ip_tv.SetValue(dlg.GetPath())
             ipCfgPath = dlg.GetPath()
+            self.read_dev_config(ipCfgPath)
             dlg.Destroy()
 
     def clear_ip_path_click(self, event):
         # event.Skip()
-        self.input_ip_tv.SetValue("")
+        self.input_ip_tv.Clear()
+        self.ip_name_pwd_txt.Clear()
+        self.ip_name_pwd_txt.Hide()
 
     def telnet_click(self, event):
         self.isTelnet = 1
@@ -167,15 +217,33 @@ class MyFrame2(wx.Frame):
         autocheck_net.chech_dev(self.input_ip_tv.GetValue(), self.isSSH, self.isTelnet, self.dev_Type)
 
     def time_task_click(self, event):
-        countone(self)
+        print("start timestask")
 
     def read_dev_config(self, path):
         f = open(path, "rb")
         lines = f.readlines()
         print(type(lines))
         for line in lines:
-            self.config_content.AppendText(line)
+            self.ip_name_pwd_txt.AppendText(line)
+        self.ip_name_pwd_txt.Show()
         f.close()
+
+    def OnCalSelChangedb(self, event):
+        cal = event.GetEventObject()
+        datestr = cal.GetValue()
+        beginyear = datestr.year
+        beginmonth = str(int(datestr.month) + 1)
+        beginday = datestr.day
+
+        self.yearInput1.Clear()
+        dataStr = str(beginyear) + "-" + str(beginmonth) + "-" + str(beginday)
+        self.yearInput1.WriteText(dataStr)
+
+    def OnTimeSelChangedb(self, event):
+        cal = event.GetEventObject()
+        timestr = cal.GetValue()
+        self.timeInput.Clear()
+        self.timeInput.WriteText(str(timestr))
 
 
 if __name__ == '__main__':
