@@ -171,8 +171,8 @@ class MyFrame2(wx.Frame):
 
     # 设置标志位
     isSSH = 0
-    isTelnet = 0
-    dev_Type = 1
+    isTelnet = 1
+    dev_Type = Device.H3C
     ipCfgPath = ""
 
     # 窗口销毁监听

@@ -20,6 +20,7 @@ from deviceType import Device
 
 # --------------------------------------------------------
 Current_cwd = os.path.abspath(os.path.dirname(__file__))
+print(Current_cwd)
 LogDir = Current_cwd + r'\log'
 LogDirMailToday = LogDir + '\\' + time.strftime('%Y%m%d')  # 以日期创建目录
 
@@ -88,7 +89,9 @@ def Port_check(Host, UserName, PassWord):
         os.chdir(LogDirMailToday)
         Error_Message = "Time Out"
         Log_Error_File = Host.strip() + '_failed.txt'
+        print(Log_Error_File)
         log = open(Log_Error_File, 'w')
+        print("Port_check")
         Error_Log = 'ERROR:' + Host.strip() + ',' + str(Error_Message)
         log.write(Error_Log)
         log.close()
@@ -160,36 +163,47 @@ def AutoCheck_telnet(Host, UserName, PassWord, DeviceName):
     content = ""
     success_count_telnet = 0
     failed_count_telnet = 0
-    tn = telnetlib.Telnet(Host.strip(), timeout=3)
-    DeviceType = tn.expect([], timeout=0.5)[2].decode().strip()
-    tn.set_debuglevel(2)
-    tn.read_until("Username:", 1)
-    tn.write(UserName.encode() + "\n")
-    tn.read_until("Password:", 1)
-    tn.write(PassWord.encode() + "\n")
-    tn.write(5 * b'\n')
+    try:
+        tn = telnetlib.Telnet(Host.strip(), timeout=3)
+        DeviceType = tn.expect([], timeout=0.5)[2].decode().strip()
+        tn.set_debuglevel(2)
+        tn.read_until("Username:", 1)
+        tn.write(UserName.encode() + "\n")
+        tn.read_until("Password:", 1)
+        tn.write(PassWord.encode() + "\n")
+        tn.write(5 * b'\n')
+        print("AutoCheck_telnet")
+        # pdb.set_trace()
+        if DeviceType.upper().find('Huawei'.upper()) != -1 or DeviceType.upper().find('H3C'.upper()) != -1:  # 华为或者华三设备
+            cmdfile = open(cmdfile_HW)  # 命令列表
+            tn.write('super'.encode() + '\n')
+        elif DeviceName == Device.CISCO:  # 思科设备
+            cmdfile = open(cmdfile_CISCO)  # 命令列表
+            tn.write('enable'.encode() + '\n')
+        elif DeviceName == Device.RUIJIE:
+            cmdfile = open(cmdfile_RUIJIE)
+            tn.write('enable'.encode() + '\n')
+        else:
+            cmdfile = open(cmdfile_HW)
+            tn.write('enable'.encode() + '\n')
 
-    # pdb.set_trace()
-    if DeviceType.upper().find('Huawei'.upper()) != -1 or DeviceType.upper().find('H3C'.upper()) != -1:  # 华为或者华三设备
-        cmdfile = open(cmdfile_HW)  # 命令列表
-        tn.write('super'.encode() + '\n')
-    elif DeviceName == Device.CISCO:  # 思科设备
-        cmdfile = open(cmdfile_CISCO)  # 命令列表
-        tn.write('enable'.encode() + '\n')
-    elif DeviceName == Device.RUIJIE:
-        cmdfile = open(cmdfile_RUIJIE)
-        tn.write('enable'.encode() + '\n')
-    else:
-        cmdfile = open(cmdfile_HW)
-        tn.write('enable'.encode() + '\n')
+        for cmd in cmdfile:  # 输入列表的命令
+            tn.write(cmd.strip().encode())
+            tn.write(2 * b'\n')
+            telreply = tn.expect([], timeout=5)[2].decode().strip()  # 输出日志
+            content = str(content) + str(telreply)
+    except Exception as Error_Message:
+        os.chdir(LogDirMailToday)
+        Log_Error_File = Host.strip() + '_failed.txt'
+        log = open(Log_Error_File, 'w')
+        Error_Log = 'ERROR:' + Host.strip() + ',' + str(Error_Message)
+        log.write(Error_Log)
+        log.close()
+        failed_count_telnet = + 1
 
-    for cmd in cmdfile:  # 输入列表的命令
-        tn.write(cmd.strip().encode())
-        tn.write(2 * b'\n')
-        telreply = tn.expect([], timeout=5)[2].decode().strip()  # 输出日志
-        content = str(content) + str(telreply)
     os.chdir(LogDirMailToday)
-    LogFile = DeviceName + '.txt'
+    print(str(DeviceName))
+    LogFile = str(DeviceName) + '.txt'
     log = open(LogFile, 'a')  # 写入日志
     DeviceType = ""
     log.write(content)
@@ -280,11 +294,14 @@ def chech_dev(path, isSSh, isTelnet, dev_type):
         pwd = ip_name_pwd[2]
 
         #(Port) = Port_check(ip, name, pwd)
-
+        print(str(isSSh)+" ffff")
+        print(str(isTelnet)+" hhhhh")
         if isSSh:
             (success_count_ssh, failed_count_ssh) = AutoCheck_ssh(ip, name, pwd, m_dev_type)
+            print('ssh')
         elif isTelnet:
             (success_count_telnet, failed_count_telnet) = AutoCheck_telnet(ip, name, pwd, m_dev_type)
+            print('isTelnet')
         else:
             failed_count_to = + 1
         success_count = success_count + success_count_ssh + success_count_telnet
@@ -292,5 +309,5 @@ def chech_dev(path, isSSh, isTelnet, dev_type):
     Zip_File()
     print("success:%s" % success_count)
     print("fail:%s" % failed_count)
-    #Send_Mail(success_count, failed_count, Mail_User, Mail_Pwd)
+    Send_Mail(success_count, failed_count, Mail_User, Mail_Pwd)
 # --------------------------------------------------------------------------
