@@ -13,8 +13,20 @@ import wx.adv
 import wx.lib.calendar
 import autocheck_net
 # from dateTime import countone
-
+import os
 from deviceType import Device
+
+# Current_cwd = "E:\\dist"
+# Current_cwd = os.path.abspath(os.path.dirname(__file__))
+Current_cwd = os.getcwd()
+print("//////////////////")
+print(Current_cwd)
+print(os.getcwd())  # 获取当前工作目录路径
+print(os.path.abspath('.'))  # 获取当前工作目录路径
+print(os.path.abspath('test.txt'))  # 获取当前目录文件下的工作目录路径
+print(os.path.abspath('..'))  # 获取当前工作的父目录 ！注意是父目录路径
+print(os.path.abspath(os.curdir))
+print("///////////////")
 
 
 ###########################################################################
@@ -25,7 +37,8 @@ class MyFrame2(wx.Frame):
 
     def __init__(self, parent):
         wx.Frame.__init__(self, parent, id=wx.ID_ANY, title=u"昆仑银行网络自动运维工具", pos=wx.DefaultPosition,
-                          size=wx.Size(400, 400), style=wx.DEFAULT_FRAME_STYLE | wx.TAB_TRAVERSAL)
+                          size=wx.Size(400, 400),
+                          style=wx.SYSTEM_MENU | wx.MINIMIZE_BOX | wx.CLOSE_BOX | wx.CAPTION | wx.BORDER_THEME)
 
         self.SetSizeHints(wx.DefaultSize, wx.DefaultSize)
         # 设置图标
@@ -62,12 +75,12 @@ class MyFrame2(wx.Frame):
         dev_bSizer.Add(dev_select_bSizer, 0, 1, 5)
 
         # ip 用户名 密码展示
-        self.ip_name_pwd_txt = wx.TextCtrl(self, wx.ID_ANY, wx.EmptyString, pos=(80, 20), size=(250, 120),
-                                           style=wx.TE_MULTILINE | wx.BORDER_SIMPLE)
+        self.ip_name_pwd_txt = wx.TextCtrl(self, wx.ID_ANY, wx.EmptyString, pos=(80, 80), size=(100, 200),
+                                           style=wx.TE_MULTILINE | wx.BORDER_RAISED)
 
-        self.ip_name_pwd_txt.Hide()
+        self.ip_name_pwd_txt.Show()
 
-        dev_bSizer.Add(self.ip_name_pwd_txt, 1, wx.EXPAND, 5)
+        dev_bSizer.Add(self.ip_name_pwd_txt, 1, wx.ALL | wx.EXPAND, 5)
         # ip 用户名 密码展示
 
         frame_bSizer.Add(dev_bSizer, 1, wx.EXPAND, 5)
@@ -81,7 +94,7 @@ class MyFrame2(wx.Frame):
         self.m_staticText2.Wrap(-1)
         ip_bSizer.Add(self.m_staticText2, 0, wx.ALL, 5)
 
-        self.input_ip_tv = wx.TextCtrl(self, wx.ID_ANY, wx.EmptyString, wx.DefaultPosition, wx.DefaultSize, 0)
+        self.input_ip_tv = wx.TextCtrl(self, wx.ID_ANY, wx.EmptyString, wx.DefaultPosition, wx.DefaultSize)
         ip_bSizer.Add(self.input_ip_tv, 1, wx.ALL, 5)
 
         self.import_ip_bt = wx.Button(self, wx.ID_ANY, u"添加", wx.DefaultPosition, wx.DefaultSize, 0)
@@ -182,16 +195,24 @@ class MyFrame2(wx.Frame):
 
     # Virtual event handlers, overide them in your derived class
     def h3c_click(self, event):
-        dev_Type = Device.H3C
+        self.dev_Type = Device.H3C
+        autocheck_net.m_dev_type = Device.H3C
+        print("h3c_click")
 
     def cisco_click(self, event):
-        dev_Type = Device.CISCO
+        self.dev_Type = Device.CISCO
+        autocheck_net.m_dev_type = Device.CISCO
+        print("cisco_click")
 
     def ruijie_click(self, event):
-        dev_Type = Device.RUIJIE
+        self.dev_Type = Device.RUIJIE
+        autocheck_net.m_dev_type = Device.RUIJIE
+        print("ruijie_click")
 
     def hw_click(self, event):
-        dev_Type = Device.HW
+        self.dev_Type = Device.HW
+        autocheck_net.m_dev_type = Device.HW
+        print("hw_click")
 
     def import_ip_click(self, event):
         dlg = wx.FileDialog(self, u'选择要打开的txt文件', style=wx.DD_DEFAULT_STYLE)
@@ -214,6 +235,7 @@ class MyFrame2(wx.Frame):
         self.isSSH = 1
 
     def start_backup_click(self, event):
+        print(self.dev_Type)
         autocheck_net.chech_dev(self.input_ip_tv.GetValue(), self.isSSH, self.isTelnet, self.dev_Type)
 
     def time_task_click(self, event):

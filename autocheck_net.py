@@ -16,10 +16,12 @@ from email.mime.text import MIMEText
 from email.mime.application import MIMEApplication
 from deviceType import Device
 
+from net_dev_check import Current_cwd
+
 # import pdb
 
 # --------------------------------------------------------
-Current_cwd = os.path.abspath(os.path.dirname(__file__))
+
 print(Current_cwd)
 LogDir = Current_cwd + r'\log'
 LogDirMailToday = LogDir + '\\' + time.strftime('%Y%m%d')  # 以日期创建目录
@@ -37,7 +39,7 @@ ZIPFILE = u'BOSS Network check' + os.path.basename(LogDirMailToday) + '.zip'
 os.chdir(Current_cwd)
 
 ip_cfg_path = ""
-m_dev_type = 1
+m_dev_type = Device.H3C
 
 
 # ---------------------------------------------------------
@@ -90,7 +92,7 @@ def Port_check(Host, UserName, PassWord):
         Error_Message = "Time Out"
         Log_Error_File = Host.strip() + '_failed.txt'
         print(Log_Error_File)
-        log = open(Log_Error_File, 'w')
+        log = open(Log_Error_File, 'a+')
         print("Port_check")
         Error_Log = 'ERROR:' + Host.strip() + ',' + str(Error_Message)
         log.write(Error_Log)
@@ -119,8 +121,8 @@ def AutoCheck_ssh(Host, UserName, PassWord, DeviceName):
     except Exception as Error_Message:
         os.chdir(LogDirMailToday)
         Log_Error_File = Host.strip() + '_failed.txt'
-        log = open(Log_Error_File, 'w')
-        Error_Log = 'ERROR:' + Host.strip() + ',' + str(Error_Message)
+        log = open(Log_Error_File, 'a+')
+        Error_Log = 'ERROR:' + Host.strip() + ',' + str(Error_Message) + '\r\n'
         log.write(Error_Log)
         log.close()
         failed_count_ssh = + 1
@@ -144,7 +146,7 @@ def AutoCheck_ssh(Host, UserName, PassWord, DeviceName):
             content.append(channel.recv(9999))
         os.chdir(LogDirMailToday)
         LogFile = DeviceName + '.txt'
-        log = open(LogFile, 'a')
+        log = open(LogFile, 'a+')
         for log_info in content:
             log.write(log_info)
         success_count_ssh = + 1
@@ -195,8 +197,8 @@ def AutoCheck_telnet(Host, UserName, PassWord, DeviceName):
     except Exception as Error_Message:
         os.chdir(LogDirMailToday)
         Log_Error_File = Host.strip() + '_failed.txt'
-        log = open(Log_Error_File, 'w')
-        Error_Log = 'ERROR:' + Host.strip() + ',' + str(Error_Message)
+        log = open(Log_Error_File, 'a+')
+        Error_Log = 'ERROR:' + Host.strip() + ',' + str(Error_Message) + '\r\n'
         log.write(Error_Log)
         log.close()
         failed_count_telnet = + 1
@@ -204,7 +206,7 @@ def AutoCheck_telnet(Host, UserName, PassWord, DeviceName):
     os.chdir(LogDirMailToday)
     print(str(DeviceName))
     LogFile = str(DeviceName) + '.txt'
-    log = open(LogFile, 'a')  # 写入日志
+    log = open(LogFile, 'a+')  # 写入日志
     DeviceType = ""
     log.write(content)
     log.close()
@@ -272,6 +274,7 @@ def chech_dev(path, isSSh, isTelnet, dev_type):
     m_dev_type = dev_type
 
     print(ip_cfg_path)
+    print("chech=========m_dev_type====")
     print(m_dev_type)
 
     success_count = 0
@@ -293,9 +296,9 @@ def chech_dev(path, isSSh, isTelnet, dev_type):
         name = ip_name_pwd[1]
         pwd = ip_name_pwd[2]
 
-        #(Port) = Port_check(ip, name, pwd)
-        print(str(isSSh)+" ffff")
-        print(str(isTelnet)+" hhhhh")
+        # (Port) = Port_check(ip, name, pwd)
+        print(str(isSSh) + " ffff")
+        print(str(isTelnet) + " hhhhh")
         if isSSh:
             (success_count_ssh, failed_count_ssh) = AutoCheck_ssh(ip, name, pwd, m_dev_type)
             print('ssh')
