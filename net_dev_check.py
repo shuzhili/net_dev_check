@@ -38,7 +38,7 @@ class MyFrame2(wx.Frame):
     def __init__(self, parent):
         wx.Frame.__init__(self, parent, id=wx.ID_ANY, title=u"昆仑银行网络自动运维工具", pos=wx.DefaultPosition,
                           size=wx.Size(400, 400),
-                          style=wx.SYSTEM_MENU | wx.MINIMIZE_BOX | wx.CLOSE_BOX | wx.CAPTION | wx.BORDER_THEME)
+                          style=wx.DEFAULT_FRAME_STYLE)
 
         self.SetSizeHints(wx.DefaultSize, wx.DefaultSize)
         # 设置图标
@@ -97,7 +97,7 @@ class MyFrame2(wx.Frame):
         self.input_ip_tv = wx.TextCtrl(self, wx.ID_ANY, wx.EmptyString, wx.DefaultPosition, wx.DefaultSize)
         ip_bSizer.Add(self.input_ip_tv, 1, wx.ALL, 5)
 
-        self.import_ip_bt = wx.Button(self, wx.ID_ANY, u"添加", wx.DefaultPosition, wx.DefaultSize, 0)
+        self.import_ip_bt = wx.Button(self, wx.ID_ANY, u"添加", wx.DefaultPosition, wx.DefaultSize, style=wx.BORDER_RAISED)
         ip_bSizer.Add(self.import_ip_bt, 0, wx.ALL, 5)
 
         self.clear_ip_path_bt = wx.Button(self, wx.ID_ANY, u"清空", wx.DefaultPosition, wx.DefaultSize, 0)
