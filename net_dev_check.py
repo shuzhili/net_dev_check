@@ -59,10 +59,10 @@ class MyFrame2(wx.Frame):
         # 设备选择
         dev_select_bSizer = wx.BoxSizer(wx.VERTICAL)
 
-        self.h3c_radioBtn = wx.RadioButton(self, wx.ID_ANY, u"h3c", wx.DefaultPosition, wx.DefaultSize, 0)
+        self.h3c_radioBtn = wx.RadioButton(self, wx.ID_ANY, u"H3C", wx.DefaultPosition, wx.DefaultSize, 0)
         dev_select_bSizer.Add(self.h3c_radioBtn, 1, wx.ALL, 5)
 
-        self.cisco_radioBtn = wx.RadioButton(self, wx.ID_ANY, u"cisco", wx.DefaultPosition, wx.DefaultSize, 0)
+        self.cisco_radioBtn = wx.RadioButton(self, wx.ID_ANY, u"Cisco", wx.DefaultPosition, wx.DefaultSize, 0)
         dev_select_bSizer.Add(self.cisco_radioBtn, 1, wx.ALL, 5)
 
         self.ruijie_radioBtn = wx.RadioButton(self, wx.ID_ANY, u"锐捷", wx.DefaultPosition, wx.DefaultSize, 0)
