@@ -39,7 +39,7 @@ class MyFrame2(wx.Frame):
         wx.Frame.__init__(self, parent, id=wx.ID_ANY, title=u"昆仑银行网络自动运维工具", pos=wx.DefaultPosition,
                           size=wx.Size(400, 400),
                           style=wx.DEFAULT_FRAME_STYLE)
-
+        self.BackgroundColour = wx.WHITE
         self.SetSizeHints(wx.DefaultSize, wx.DefaultSize)
         # 设置图标
         self.icon1 = wx.Icon(name="logo2.ico", type=wx.BITMAP_TYPE_ICO)

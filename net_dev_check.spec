@@ -4,7 +4,7 @@ block_cipher = None
 
 
 a = Analysis(['net_dev_check.py', 'autocheck_net.py', 'deviceType.py'],
-             pathex=['E:\\PycharmProjects\\untitled1'],
+             pathex=['D:\\git_pro\\net_dev_check'],
              binaries=[],
              datas=[],
              hiddenimports=[],
@@ -30,4 +30,4 @@ exe = EXE(pyz,
           upx=True,
           upx_exclude=[],
           runtime_tmpdir=None,
-          console=False , icon='logo2.ico')
+          console=False , icon='logo.ico')
