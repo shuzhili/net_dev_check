@@ -6,6 +6,7 @@
 ##
 ## PLEASE DO "NOT" EDIT THIS FILE!
 ###########################################################################
+import threading # 创建线程的模块
 
 import wx
 import wx.xrc
@@ -29,6 +30,10 @@ print(os.path.abspath(os.curdir))
 print("///////////////")
 
 
+def Myfunc(input_ip_tvText, isSSH, isTelnet, dev_Type):
+    print(dev_Type)
+    autocheck_net.chech_dev(input_ip_tvText, isSSH, isTelnet, dev_Type)
+
 ###########################################################################
 ## Class MyFrame2
 #################################import_config##########################################
@@ -42,7 +47,7 @@ class MyFrame2(wx.Frame):
         self.BackgroundColour = wx.WHITE
         self.SetSizeHints(wx.DefaultSize, wx.DefaultSize)
         # 设置图标
-        self.icon1 = wx.Icon(name="logo2.ico", type=wx.BITMAP_TYPE_ICO)
+        self.icon1 = wx.Icon(name="logo.ico", type=wx.BITMAP_TYPE_ICO)
         self.SetIcon(self.icon1)
         # 设置图标
 
@@ -76,7 +81,7 @@ class MyFrame2(wx.Frame):
 
         # ip 用户名 密码展示
         self.ip_name_pwd_txt = wx.TextCtrl(self, wx.ID_ANY, wx.EmptyString, pos=(80, 80), size=(100, 200),
-                                           style=wx.TE_MULTILINE | wx.BORDER_RAISED)
+                                           style=wx.TE_MULTILINE )
 
         self.ip_name_pwd_txt.Show()
 
@@ -230,13 +235,21 @@ class MyFrame2(wx.Frame):
 
     def telnet_click(self, event):
         self.isTelnet = 1
+        self.isSSH = 0
 
     def ssh_click(self, event):
+        self.isTelnet = 0
         self.isSSH = 1
 
+
+
+    def printT(self):
+        print("dfdfdfdfd")
+
     def start_backup_click(self, event):
-        print(self.dev_Type)
-        autocheck_net.chech_dev(self.input_ip_tv.GetValue(), self.isSSH, self.isTelnet, self.dev_Type)
+        # 开启线程  参数1：方法名(不要带括号)   参数2：参数（元祖）      返回对象
+        p = threading.Thread(target=Myfunc,args=(self.input_ip_tv.GetValue(),self.isSSH,self.isTelnet,self.dev_Type),daemon=True)
+        p.start()  # 只是给操作系统发送了一个就绪信号，并不是执行。操作系统接收信号后安排cpu运行
 
     def time_task_click(self, event):
         print("start timestask")

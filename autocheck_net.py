@@ -166,7 +166,8 @@ def AutoCheck_telnet(Host, UserName, PassWord, DeviceName):
     success_count_telnet = 0
     failed_count_telnet = 0
     try:
-        tn = telnetlib.Telnet(Host.strip(), timeout=3)
+        print(Host.strip().encode("utf-8"))
+        tn = telnetlib.Telnet(1111111, port=23, timeout=3)
         DeviceType = tn.expect([], timeout=0.5)[2].decode().strip()
         tn.set_debuglevel(2)
         tn.read_until("Username:", 1)
