@@ -257,7 +257,9 @@ class MyFrame2(wx.Frame):
     def read_dev_config(self, path):
         f = open(path, "rb")
         lines = f.readlines()
+        print(lines)
         print(type(lines))
+        self.ip_name_pwd_txt.Clear()
         for line in lines:
             self.ip_name_pwd_txt.AppendText(line)
         self.ip_name_pwd_txt.Show()
