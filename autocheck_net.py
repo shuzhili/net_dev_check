@@ -47,13 +47,11 @@ m_dev_type = Device.H3C
 def Read_IP_UserName_Pwd(path):
     f = open(path, "rb")
     lines = f.readlines()
-    print(type(lines))
     data = []
     for line in lines:
         ip_name_pwd = str(line, encoding='unicode_escape').strip().split(" ")
         data.append(ip_name_pwd)
     f.close()
-    print(*data)
     return data
 
 
@@ -135,6 +133,7 @@ def AutoCheck_ssh(Host, UserName, PassWord, DeviceName):
         # channel.sendall('su' + '\n')
         time.sleep(0.5)
         # channel.sendall(SuperPass + '\n')
+        global mdfile
         if DeviceName.find('3750') != -1:
            cmdfile = open(cmdfile_CISCO)
         else:
@@ -163,12 +162,14 @@ AutoCheck_telnet()
 
 
 def AutoCheck_telnet(Host, UserName, PassWord, DeviceName):
+
     content = ""
     success_count_telnet = 0
     failed_count_telnet = 0
     try:
-        print(bytes(Host.strip(), encoding="utf-8"))
-        tn = telnetlib.Telnet(bytes(Host.strip(), encoding="utf-8"), port=23)
+        print('telnet start')
+        #tn = telnetlib.Telnet(bytes(Host.strip(), encoding="utf-8"), port=23)
+        tn = telnetlib.Telnet(bytes('route-server.ip.att.net', encoding="utf-8"), port=23)
         DeviceType = tn.expect([], timeout=0.5)[2].decode().strip()
         tn.set_debuglevel(2)
         tn.read_until(b"Username:", 1)
@@ -176,9 +177,8 @@ def AutoCheck_telnet(Host, UserName, PassWord, DeviceName):
         tn.read_until(b"Password:", 1)
         tn.write(PassWord.encode() + b"\n")
         tn.write(5 * b'\n')
-        print("AutoCheck_telnet")
         # pdb.set_trace()
-        cmdfile = open(cmdfile_HW)
+        global cmdfile
         if DeviceType.upper().find('Huawei'.upper()) != -1 or DeviceType.upper().find('H3C'.upper()) != -1:  # 华为或者华三设备
             cmdfile = open(cmdfile_HW)  # 命令列表
             tn.write('super'.encode() + b'\n')
@@ -191,14 +191,16 @@ def AutoCheck_telnet(Host, UserName, PassWord, DeviceName):
         else:
             cmdfile = open(cmdfile_HW)
             tn.write('enable'.encode() + b'\n')
-
+        print('telnet write data')
         for cmd in cmdfile:  # 输入列表的命令
             tn.write(cmd.strip().encode())
             tn.write(2 * b'\n')
             telreply = tn.expect([], timeout=5)[2].decode().strip()  # 输出日志
             content = str(content) + str(telreply)
+        print('telnet write data finish')
         cmdfile.close()
     except Exception as Error_Message:
+        print('telnet exception ')
         os.chdir(LogDirMailToday)
         Log_Error_File = Host.strip() + '_failed.txt'
         log = open(Log_Error_File, 'a+')
@@ -208,11 +210,11 @@ def AutoCheck_telnet(Host, UserName, PassWord, DeviceName):
         failed_count_telnet = + 1
 
     os.chdir(LogDirMailToday)
-    print(str(DeviceName))
     LogFile = str(DeviceName) + '.txt'
     log = open(LogFile, 'a+')  # 写入日志
     DeviceType = ""
     log.write(content)
+    print(content)
     log.close()
     #cmdfile.close()
     success_count_telnet = + 1
@@ -277,10 +279,6 @@ def chech_dev(path, isSSh, isTelnet, dev_type):
     ip_cfg_path = path
     m_dev_type = dev_type
 
-    print(ip_cfg_path)
-    print("chech=========m_dev_type====")
-    print(m_dev_type)
-
     success_count = 0
     failed_count = 0
 
@@ -295,20 +293,17 @@ def chech_dev(path, isSSh, isTelnet, dev_type):
         failed_count_ssh = 0
         failed_count_telnet = 0
         failed_count_to = 0
-        print(ip_name_pwd)
+
         ip = ip_name_pwd[0]
         name = ip_name_pwd[1]
         pwd = ip_name_pwd[2]
 
         # (Port) = Port_check(ip, name, pwd)
-        print(str(isSSh) + " ffff")
-        print(str(isTelnet) + " hhhhh")
+
         if isSSh:
             (success_count_ssh, failed_count_ssh) = AutoCheck_ssh(ip, name, pwd, m_dev_type)
-            print('ssh')
         elif isTelnet:
             (success_count_telnet, failed_count_telnet) = AutoCheck_telnet(ip, name, pwd, m_dev_type)
-            print('isTelnet')
         else:
             failed_count_to = + 1
         success_count = success_count + success_count_ssh + success_count_telnet
