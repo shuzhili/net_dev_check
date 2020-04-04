@@ -168,23 +168,26 @@ def AutoCheck_telnet(Host, UserName, PassWord, DeviceName):
     failed_count_telnet = 0
     try:
         print('telnet start')
-        #tn = telnetlib.Telnet(bytes(Host.strip(), encoding="utf-8"), port=23)
-        tn = telnetlib.Telnet(bytes('route-server.ip.att.net', encoding="utf-8"), port=23)
-        DeviceType = tn.expect([], timeout=0.5)[2].decode().strip()
+        tn = telnetlib.Telnet(bytes(str(Host), encoding="utf-8"), port=23)
+        DeviceType = tn.expect([], timeout=1)[2].decode().strip()
+
         tn.set_debuglevel(2)
         tn.read_until(b"Username:", 1)
         tn.write(UserName.encode() + b"\n")
         tn.read_until(b"Password:", 1)
         tn.write(PassWord.encode() + b"\n")
         tn.write(5 * b'\n')
-        # pdb.set_trace()
+
+        print('=======deviceType========' + DeviceType)
+        #pdb.set_trace()
         global cmdfile
-        if DeviceType.upper().find('Huawei'.upper()) != -1 or DeviceType.upper().find('H3C'.upper()) != -1:  # 华为或者华三设备
+        if DeviceName == Device.H3C or DeviceName == Device.HW:  # 华为或者华三设备
             cmdfile = open(cmdfile_HW)  # 命令列表
             tn.write('super'.encode() + b'\n')
         elif DeviceName == Device.CISCO:  # 思科设备
             cmdfile = open(cmdfile_CISCO)  # 命令列表
-            tn.write('enable'.encode() + b'\n')
+            tn.write('enable\n'.encode())
+            time.sleep(1)
         elif DeviceName == Device.RUIJIE:
             cmdfile = open(cmdfile_RUIJIE)
             tn.write('enable'.encode() + b'\n')
@@ -193,12 +196,16 @@ def AutoCheck_telnet(Host, UserName, PassWord, DeviceName):
             tn.write('enable'.encode() + b'\n')
         print('telnet write data')
         for cmd in cmdfile:  # 输入列表的命令
+            print('-----------lsz------------' + cmd.strip())
             tn.write(cmd.strip().encode())
+            time.sleep(1)
             tn.write(2 * b'\n')
             telreply = tn.expect([], timeout=5)[2].decode().strip()  # 输出日志
+            print('-----lsz------------'+str(telreply))
             content = str(content) + str(telreply)
         print('telnet write data finish')
         cmdfile.close()
+        success_count_telnet = + 1
     except Exception as Error_Message:
         print('telnet exception ')
         os.chdir(LogDirMailToday)
@@ -212,12 +219,9 @@ def AutoCheck_telnet(Host, UserName, PassWord, DeviceName):
     os.chdir(LogDirMailToday)
     LogFile = str(DeviceName) + '.txt'
     log = open(LogFile, 'a+')  # 写入日志
-    DeviceType = ""
     log.write(content)
-    print(content)
     log.close()
-    #cmdfile.close()
-    success_count_telnet = + 1
+
     return success_count_telnet, failed_count_telnet
 
 
