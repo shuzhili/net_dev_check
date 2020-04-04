@@ -1,5 +1,5 @@
 # -*-coding:utf-8-*-
-
+import wx
 import paramiko
 import telnetlib
 import socket
@@ -42,6 +42,10 @@ ip_cfg_path = ""
 m_dev_type = Device.H3C
 
 
+def OnCloseMe():
+    dlg = wx.MessageDialog(None, u"完成", u"标题信息", wx.ID_YES)
+    if dlg.ShowModal() == wx.ID_YES:
+        dlg.Destroy()
 # ---------------------------------------------------------
 
 def Read_IP_UserName_Pwd(path):
@@ -133,7 +137,7 @@ def AutoCheck_ssh(Host, UserName, PassWord, DeviceName):
         # channel.sendall('su' + '\n')
         time.sleep(0.5)
         # channel.sendall(SuperPass + '\n')
-        global mdfile
+        global cmdfile
         if DeviceName.find('3750') != -1:
            cmdfile = open(cmdfile_CISCO)
         else:
@@ -151,7 +155,7 @@ def AutoCheck_ssh(Host, UserName, PassWord, DeviceName):
         success_count_ssh = + 1
         channel.close()
         trans.close()
-        #cmdfile.close()
+        cmdfile.close()
     return success_count_ssh, failed_count_ssh
 
 
@@ -198,10 +202,11 @@ def AutoCheck_telnet(Host, UserName, PassWord, DeviceName):
         for cmd in cmdfile:  # 输入列表的命令
             print('-----------lsz------------' + cmd.strip())
             tn.write(cmd.strip().encode())
-            time.sleep(1)
+            #这里要等待一段时间
+            time.sleep(2)
             tn.write(2 * b'\n')
-            telreply = tn.expect([], timeout=5)[2].decode().strip()  # 输出日志
-            print('-----lsz------------'+str(telreply))
+            telreply = tn.expect([], timeout=10)[2].decode().strip()  # 输出日志
+            print('-----lsz telreply------------'+str(telreply))
             content = str(content) + str(telreply)
         print('telnet write data finish')
         cmdfile.close()
@@ -312,6 +317,7 @@ def chech_dev(path, isSSh, isTelnet, dev_type):
             failed_count_to = + 1
         success_count = success_count + success_count_ssh + success_count_telnet
         failed_count = failed_count + failed_count_ssh + failed_count_telnet + failed_count_to
+    OnCloseMe()
     #Zip_File()
     print("success:%s" % success_count)
     print("fail:%s" % failed_count)

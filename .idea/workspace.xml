@@ -1,22 +1,22 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="df09885c-e8c7-4702-9826-fa2f62d130ad" name="Default Changelist" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/untitled1.iml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/untitled1.iml" afterDir="false" />
+    <list default="true" id="df09885c-e8c7-4702-9826-fa2f62d130ad" name="Default Changelist" comment="修改bug">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/autocheck_net.py" beforeDir="false" afterPath="$PROJECT_DIR$/autocheck_net.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/build/net_dev_check/Analysis-00.toc" beforeDir="false" afterPath="$PROJECT_DIR$/build/net_dev_check/Analysis-00.toc" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/net_dev_check/COLLECT-00.toc" beforeDir="false" afterPath="$PROJECT_DIR$/build/net_dev_check/COLLECT-00.toc" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/build/net_dev_check/EXE-00.toc" beforeDir="false" afterPath="$PROJECT_DIR$/build/net_dev_check/EXE-00.toc" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/build/net_dev_check/PKG-00.pkg" beforeDir="false" afterPath="$PROJECT_DIR$/build/net_dev_check/PKG-00.pkg" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/build/net_dev_check/PKG-00.toc" beforeDir="false" afterPath="$PROJECT_DIR$/build/net_dev_check/PKG-00.toc" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/build/net_dev_check/PYZ-00.pyz" beforeDir="false" afterPath="$PROJECT_DIR$/build/net_dev_check/PYZ-00.pyz" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/build/net_dev_check/PYZ-00.toc" beforeDir="false" afterPath="$PROJECT_DIR$/build/net_dev_check/PYZ-00.toc" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/build/net_dev_check/base_library.zip" beforeDir="false" afterPath="$PROJECT_DIR$/build/net_dev_check/base_library.zip" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/net_dev_check/net_dev_check.exe" beforeDir="false" afterPath="$PROJECT_DIR$/build/net_dev_check/net_dev_check.exe" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/build/net_dev_check/net_dev_check.exe.manifest" beforeDir="false" afterPath="$PROJECT_DIR$/build/net_dev_check/net_dev_check.exe.manifest" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/build/net_dev_check/warn-net_dev_check.txt" beforeDir="false" afterPath="$PROJECT_DIR$/build/net_dev_check/warn-net_dev_check.txt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/dist/logo2.ico" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/net_dev_check/xref-net_dev_check.html" beforeDir="false" afterPath="$PROJECT_DIR$/build/net_dev_check/xref-net_dev_check.html" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/net_dev_check.py" beforeDir="false" afterPath="$PROJECT_DIR$/net_dev_check.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/net_dev_check.spec" beforeDir="false" afterPath="$PROJECT_DIR$/net_dev_check.spec" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -56,15 +56,15 @@
     <property name="settings.editor.selected.configurable" value="com.jetbrains.python.configuration.PythonContentEntriesConfigurable" />
   </component>
   <component name="RecentsManager">
-    <key name="MoveFile.RECENT_KEYS">
-      <recent name="D:\git_pro\net_dev_check\dist" />
-    </key>
     <key name="CopyFile.RECENT_KEYS">
       <recent name="D:\git_pro\net_dev_check\dist" />
       <recent name="D:\git_pro\net_dev_check\dist\etc" />
       <recent name="D:\git_pro\net_dev_check" />
       <recent name="E:\PycharmProjects\untitled1\dist" />
       <recent name="E:\PycharmProjects\untitled1\etc" />
+    </key>
+    <key name="MoveFile.RECENT_KEYS">
+      <recent name="D:\git_pro\net_dev_check\dist" />
     </key>
   </component>
   <component name="RunManager">
@@ -199,7 +199,42 @@
       <option name="project" value="LOCAL" />
       <updated>1583645628802</updated>
     </task>
-    <option name="localTasksCounter" value="8" />
+    <task id="LOCAL-00008" summary="修改bug">
+      <created>1584581783983</created>
+      <option name="number" value="00008" />
+      <option name="presentableId" value="LOCAL-00008" />
+      <option name="project" value="LOCAL" />
+      <updated>1584581783983</updated>
+    </task>
+    <task id="LOCAL-00009" summary="修改bug">
+      <created>1585542130010</created>
+      <option name="number" value="00009" />
+      <option name="presentableId" value="LOCAL-00009" />
+      <option name="project" value="LOCAL" />
+      <updated>1585542130010</updated>
+    </task>
+    <task id="LOCAL-00010" summary="修改bug">
+      <created>1585550828862</created>
+      <option name="number" value="00010" />
+      <option name="presentableId" value="LOCAL-00010" />
+      <option name="project" value="LOCAL" />
+      <updated>1585550828862</updated>
+    </task>
+    <task id="LOCAL-00011" summary="修改bug">
+      <created>1585917322709</created>
+      <option name="number" value="00011" />
+      <option name="presentableId" value="LOCAL-00011" />
+      <option name="project" value="LOCAL" />
+      <updated>1585917322709</updated>
+    </task>
+    <task id="LOCAL-00012" summary="修改bug">
+      <created>1585985451049</created>
+      <option name="number" value="00012" />
+      <option name="presentableId" value="LOCAL-00012" />
+      <option name="project" value="LOCAL" />
+      <updated>1585985451049</updated>
+    </task>
+    <option name="localTasksCounter" value="13" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -233,11 +268,15 @@
       <screen x="0" y="0" width="1920" height="1032" />
     </state>
     <state x="610" y="80" key="#net_dev_check/0.0.1920.1032@0.0.1920.1032" timestamp="1583387116760" />
-    <state x="398" y="0" key="CommitChangelistDialog2" timestamp="1583645621553">
+    <state x="398" y="0" key="CommitChangelistDialog2" timestamp="1585985449028">
       <screen x="0" y="0" width="1920" height="1032" />
     </state>
     <state x="283" y="0" key="CommitChangelistDialog2/0.0.1366.728@0.0.1366.728" timestamp="1581927381529" />
-    <state x="398" y="0" key="CommitChangelistDialog2/0.0.1920.1032@0.0.1920.1032" timestamp="1583645621553" />
+    <state x="398" y="0" key="CommitChangelistDialog2/0.0.1920.1032@0.0.1920.1032" timestamp="1585985449028" />
+    <state x="77" y="44" key="DiffContextDialog" timestamp="1585551380919">
+      <screen x="0" y="0" width="1920" height="1032" />
+    </state>
+    <state x="77" y="44" key="DiffContextDialog/0.0.1920.1032@0.0.1920.1032" timestamp="1585551380919" />
     <state x="629" y="224" key="EnvironmentVariablesDialog" timestamp="1583387113788">
       <screen x="0" y="0" width="1920" height="1032" />
     </state>
@@ -247,26 +286,26 @@
     </state>
     <state x="460" y="105" key="FileChooserDialogImpl/0.0.1366.728@0.0.1366.728" timestamp="1580807364335" />
     <state x="647" y="149" key="FileChooserDialogImpl/0.0.1920.1032@0.0.1920.1032" timestamp="1583644961172" />
-    <state width="1892" height="347" key="GridCell.Tab.0.bottom" timestamp="1583652592104">
+    <state width="1892" height="304" key="GridCell.Tab.0.bottom" timestamp="1585990156108">
       <screen x="0" y="0" width="1920" height="1032" />
     </state>
     <state width="1323" height="239" key="GridCell.Tab.0.bottom/0.0.1366.728@0.0.1366.728" timestamp="1581678621884" />
-    <state width="1892" height="347" key="GridCell.Tab.0.bottom/0.0.1920.1032@0.0.1920.1032" timestamp="1583652592104" />
-    <state width="1892" height="347" key="GridCell.Tab.0.center" timestamp="1583652592104">
+    <state width="1892" height="304" key="GridCell.Tab.0.bottom/0.0.1920.1032@0.0.1920.1032" timestamp="1585990156108" />
+    <state width="1892" height="304" key="GridCell.Tab.0.center" timestamp="1585990156108">
       <screen x="0" y="0" width="1920" height="1032" />
     </state>
     <state width="1323" height="239" key="GridCell.Tab.0.center/0.0.1366.728@0.0.1366.728" timestamp="1581678621884" />
-    <state width="1892" height="347" key="GridCell.Tab.0.center/0.0.1920.1032@0.0.1920.1032" timestamp="1583652592104" />
-    <state width="1892" height="347" key="GridCell.Tab.0.left" timestamp="1583652592104">
+    <state width="1892" height="304" key="GridCell.Tab.0.center/0.0.1920.1032@0.0.1920.1032" timestamp="1585990156108" />
+    <state width="1892" height="304" key="GridCell.Tab.0.left" timestamp="1585990156107">
       <screen x="0" y="0" width="1920" height="1032" />
     </state>
     <state width="1323" height="239" key="GridCell.Tab.0.left/0.0.1366.728@0.0.1366.728" timestamp="1581678621884" />
-    <state width="1892" height="347" key="GridCell.Tab.0.left/0.0.1920.1032@0.0.1920.1032" timestamp="1583652592104" />
-    <state width="1892" height="347" key="GridCell.Tab.0.right" timestamp="1583652592104">
+    <state width="1892" height="304" key="GridCell.Tab.0.left/0.0.1920.1032@0.0.1920.1032" timestamp="1585990156107" />
+    <state width="1892" height="304" key="GridCell.Tab.0.right" timestamp="1585990156108">
       <screen x="0" y="0" width="1920" height="1032" />
     </state>
     <state width="1323" height="239" key="GridCell.Tab.0.right/0.0.1366.728@0.0.1366.728" timestamp="1581678621884" />
-    <state width="1892" height="347" key="GridCell.Tab.0.right/0.0.1920.1032@0.0.1920.1032" timestamp="1583652592104" />
+    <state width="1892" height="304" key="GridCell.Tab.0.right/0.0.1920.1032@0.0.1920.1032" timestamp="1585990156108" />
     <state x="519" y="75" key="RollbackChangesDialog" timestamp="1579590550432">
       <screen x="0" y="0" width="1366" height="728" />
     </state>
@@ -276,19 +315,20 @@
     </state>
     <state x="184" y="6" key="SettingsEditor/0.0.1366.728@0.0.1366.728" timestamp="1579251924001" />
     <state x="259" y="9" key="SettingsEditor/0.0.1920.1032@0.0.1920.1032" timestamp="1583644962214" />
-    <state x="275" y="97" key="Vcs.Push.Dialog.v2" timestamp="1581927409919">
-      <screen x="0" y="0" width="1366" height="728" />
+    <state x="387" y="138" key="Vcs.Push.Dialog.v2" timestamp="1585984908416">
+      <screen x="0" y="0" width="1920" height="1032" />
     </state>
     <state x="275" y="97" key="Vcs.Push.Dialog.v2/0.0.1366.728@0.0.1366.728" timestamp="1581927409919" />
+    <state x="387" y="138" key="Vcs.Push.Dialog.v2/0.0.1920.1032@0.0.1920.1032" timestamp="1585984908416" />
     <state x="92" y="92" width="1182" height="544" maximized="true" key="com.intellij.history.integration.ui.views.FileHistoryDialog" timestamp="1579417992825">
       <screen x="0" y="0" width="1366" height="728" />
     </state>
     <state x="92" y="92" width="1182" height="544" maximized="true" key="com.intellij.history.integration.ui.views.FileHistoryDialog/0.0.1366.728@0.0.1366.728" timestamp="1579417992825" />
-    <state x="0" y="0" key="com.intellij.ide.util.TipDialog" timestamp="1584580160649">
+    <state x="0" y="0" key="com.intellij.ide.util.TipDialog" timestamp="1585989603901">
       <screen x="0" y="0" width="1920" height="1032" />
     </state>
     <state x="0" y="0" key="com.intellij.ide.util.TipDialog/0.0.1366.728@0.0.1366.728" timestamp="1581932734974" />
-    <state x="0" y="0" key="com.intellij.ide.util.TipDialog/0.0.1920.1032@0.0.1920.1032" timestamp="1584580160649" />
+    <state x="0" y="0" key="com.intellij.ide.util.TipDialog/0.0.1920.1032@0.0.1920.1032" timestamp="1585989603901" />
     <state x="475" y="281" key="com.intellij.openapi.vcs.update.UpdateOrStatusOptionsDialogupdate-v2" timestamp="1580798845941">
       <screen x="0" y="0" width="1366" height="728" />
     </state>

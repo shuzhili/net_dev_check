@@ -6,7 +6,7 @@
 ##
 ## PLEASE DO "NOT" EDIT THIS FILE!
 ###########################################################################
-import threading # 创建线程的模块
+import threading  # 创建线程的模块
 
 import wx
 import wx.xrc
@@ -33,6 +33,7 @@ print("///////////////")
 def Myfunc(input_ip_tvText, isSSH, isTelnet, dev_Type):
     print(dev_Type)
     autocheck_net.chech_dev(input_ip_tvText, isSSH, isTelnet, dev_Type)
+
 
 ###########################################################################
 ## Class MyFrame2
@@ -81,7 +82,7 @@ class MyFrame2(wx.Frame):
 
         # ip 用户名 密码展示
         self.ip_name_pwd_txt = wx.TextCtrl(self, wx.ID_ANY, wx.EmptyString, pos=(80, 80), size=(100, 200),
-                                           style=wx.TE_MULTILINE )
+                                           style=wx.TE_MULTILINE)
 
         self.ip_name_pwd_txt.Show()
 
@@ -102,7 +103,8 @@ class MyFrame2(wx.Frame):
         self.input_ip_tv = wx.TextCtrl(self, wx.ID_ANY, wx.EmptyString, wx.DefaultPosition, wx.DefaultSize)
         ip_bSizer.Add(self.input_ip_tv, 1, wx.ALL, 5)
 
-        self.import_ip_bt = wx.Button(self, wx.ID_ANY, u"添加", wx.DefaultPosition, wx.DefaultSize, style=wx.BORDER_RAISED)
+        self.import_ip_bt = wx.Button(self, wx.ID_ANY, u"添加", wx.DefaultPosition, wx.DefaultSize,
+                                      style=wx.BORDER_RAISED)
         ip_bSizer.Add(self.import_ip_bt, 0, wx.ALL, 5)
 
         self.clear_ip_path_bt = wx.Button(self, wx.ID_ANY, u"清空", wx.DefaultPosition, wx.DefaultSize, 0)
@@ -241,14 +243,13 @@ class MyFrame2(wx.Frame):
         self.isTelnet = 0
         self.isSSH = 1
 
-
-
     def printT(self):
         print("dfdfdfdfd")
 
     def start_backup_click(self, event):
         # 开启线程  参数1：方法名(不要带括号)   参数2：参数（元祖）      返回对象
-        p = threading.Thread(target=Myfunc,args=(self.input_ip_tv.GetValue(),self.isSSH,self.isTelnet,self.dev_Type),daemon=True)
+        p = threading.Thread(target=Myfunc,
+                             args=(self.input_ip_tv.GetValue(), self.isSSH, self.isTelnet, self.dev_Type), daemon=True)
         p.start()  # 只是给操作系统发送了一个就绪信号，并不是执行。操作系统接收信号后安排cpu运行
 
     def time_task_click(self, event):
@@ -281,7 +282,6 @@ class MyFrame2(wx.Frame):
         timestr = cal.GetValue()
         self.timeInput.Clear()
         self.timeInput.WriteText(str(timestr))
-
 
 if __name__ == '__main__':
     app = wx.App()
