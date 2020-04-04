@@ -43,7 +43,7 @@ m_dev_type = Device.H3C
 
 
 def OnCloseMe():
-    dlg = wx.MessageDialog(None, u"完成", u"标题信息", wx.ID_YES)
+    dlg = wx.MessageDialog(None, u"完成", u"标题信息", wx.YES_NO | wx.ICON_QUESTION)
     if dlg.ShowModal() == wx.ID_YES:
         dlg.Destroy()
 # ---------------------------------------------------------
