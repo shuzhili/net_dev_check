@@ -46,15 +46,18 @@ def OnCloseMe():
     dlg = wx.MessageDialog(None, u"完成", u"标题信息", wx.YES_NO | wx.ICON_QUESTION)
     if dlg.ShowModal() == wx.ID_YES:
         dlg.Destroy()
+
+
 # ---------------------------------------------------------
 
 def Read_IP_UserName_Pwd(path):
-    f = open(path, "rb")
-    lines = f.readlines()
+    f = open(path)
     data = []
-    for line in lines:
-        ip_name_pwd = str(line, encoding='unicode_escape').strip().split(" ")
-        data.append(ip_name_pwd)
+    for lines in f.readlines():
+        print('---------lsz-----lines------'+str(lines))
+        (ip, name, pwd) = lines.split(" ")
+        print('---------lsz-----(ip, name, pwd)------' + str((ip, name, pwd)))
+        data.append((ip, name, pwd))
     f.close()
     return data
 
@@ -139,7 +142,7 @@ def AutoCheck_ssh(Host, UserName, PassWord, DeviceName):
         # channel.sendall(SuperPass + '\n')
         global cmdfile
         if DeviceName.find('3750') != -1:
-           cmdfile = open(cmdfile_CISCO)
+            cmdfile = open(cmdfile_CISCO)
         else:
             cmdfile = open(cmdfile_HW)
         for cmd in cmdfile:
@@ -166,12 +169,12 @@ AutoCheck_telnet()
 
 
 def AutoCheck_telnet(Host, UserName, PassWord, DeviceName):
-
     content = ""
     success_count_telnet = 0
     failed_count_telnet = 0
+    global tn
     try:
-        print('telnet start')
+        print('telnet start'+Host)
         tn = telnetlib.Telnet(bytes(str(Host), encoding="utf-8"), port=23)
         DeviceType = tn.expect([], timeout=1)[2].decode().strip()
 
@@ -183,7 +186,7 @@ def AutoCheck_telnet(Host, UserName, PassWord, DeviceName):
         tn.write(5 * b'\n')
 
         print('=======deviceType========' + DeviceType)
-        #pdb.set_trace()
+        # pdb.set_trace()
         global cmdfile
         if DeviceName == Device.H3C or DeviceName == Device.HW:  # 华为或者华三设备
             cmdfile = open(cmdfile_HW)  # 命令列表
@@ -202,11 +205,11 @@ def AutoCheck_telnet(Host, UserName, PassWord, DeviceName):
         for cmd in cmdfile:  # 输入列表的命令
             print('-----------lsz------------' + cmd.strip())
             tn.write(cmd.strip().encode())
-            #这里要等待一段时间
+            # 这里要等待一段时间
             time.sleep(2)
             tn.write(2 * b'\n')
             telreply = tn.expect([], timeout=10)[2].decode().strip()  # 输出日志
-            print('-----lsz telreply------------'+str(telreply))
+            print('-----lsz telreply------------' + str(telreply))
             content = str(content) + str(telreply)
         print('telnet write data finish')
         cmdfile.close()
@@ -220,7 +223,9 @@ def AutoCheck_telnet(Host, UserName, PassWord, DeviceName):
         log.write(Error_Log)
         log.close()
         failed_count_telnet = + 1
-
+    # finally:
+    #     tn.close()
+    #     del tn
     os.chdir(LogDirMailToday)
     LogFile = str(DeviceName) + '.txt'
     log = open(LogFile, 'a+')  # 写入日志
@@ -318,10 +323,10 @@ def chech_dev(path, isSSh, isTelnet, dev_type):
         success_count = success_count + success_count_ssh + success_count_telnet
         failed_count = failed_count + failed_count_ssh + failed_count_telnet + failed_count_to
     OnCloseMe()
-    #Zip_File()
+    # Zip_File()
     print("success:%s" % success_count)
     print("fail:%s" % failed_count)
-    Mail_User="lishuzhi@wondertek.com.cn"
-    Mail_Pwd="123456lishuzhi"
-    #Send_Mail(success_count, failed_count, Mail_User, Mail_Pwd)
+    Mail_User = "lishuzhi@wondertek.com.cn"
+    Mail_Pwd = "123456lishuzhi"
+    # Send_Mail(success_count, failed_count, Mail_User, Mail_Pwd)
 # --------------------------------------------------------------------------
