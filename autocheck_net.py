@@ -25,7 +25,6 @@ from net_dev_check import Current_cwd
 print(Current_cwd)
 LogDir = Current_cwd + r'\log'
 LogDirMailToday = LogDir + '\\' + time.strftime('%Y%m%d')  # 以日期创建目录
-
 cmdfile_CISCO = Current_cwd + r'\etc\\CMD_Cisco.ini'
 cmdfile_HW = Current_cwd + r'\etc\\CMD_HW.ini'
 cmdfile_RUIJIE = Current_cwd + r'\etc\\CMD_Ruijie.ini'
@@ -168,7 +167,7 @@ AutoCheck_telnet()
 '''
 
 
-def AutoCheck_telnet(Host, UserName, PassWord, DeviceName):
+def AutoCheck_telnet(Host, UserName, PassWord, DeviceName,IP_DIR):
     content = ""
     success_count_telnet = 0
     failed_count_telnet = 0
@@ -216,7 +215,8 @@ def AutoCheck_telnet(Host, UserName, PassWord, DeviceName):
         success_count_telnet = + 1
     except Exception as Error_Message:
         print('telnet exception ')
-        os.chdir(LogDirMailToday)
+        print(IP_DIR)
+        os.chdir(IP_DIR)
         Log_Error_File = Host.strip() + '_failed.txt'
         log = open(Log_Error_File, 'a+')
         Error_Log = 'ERROR:' + Host.strip() + ',' + str(Error_Message) + '\r\n'
@@ -226,7 +226,8 @@ def AutoCheck_telnet(Host, UserName, PassWord, DeviceName):
     # finally:
     #     tn.close()
     #     del tn
-    os.chdir(LogDirMailToday)
+    print(IP_DIR)
+    os.chdir(IP_DIR)
     LogFile = str(DeviceName) + '.txt'
     log = open(LogFile, 'a+')  # 写入日志
     log.write(content)
@@ -311,13 +312,17 @@ def chech_dev(path, isSSh, isTelnet, dev_type):
         ip = ip_name_pwd[0]
         name = ip_name_pwd[1]
         pwd = ip_name_pwd[2]
+        IP_DIR=LogDirMailToday+'\\'+ip
+        print(IP_DIR)
+        if not os.path.exists(IP_DIR):
+            os.makedirs(IP_DIR)
 
         # (Port) = Port_check(ip, name, pwd)
 
         if isSSh:
             (success_count_ssh, failed_count_ssh) = AutoCheck_ssh(ip, name, pwd, m_dev_type)
         elif isTelnet:
-            (success_count_telnet, failed_count_telnet) = AutoCheck_telnet(ip, name, pwd, m_dev_type)
+            (success_count_telnet, failed_count_telnet) = AutoCheck_telnet(ip, name, pwd, m_dev_type, IP_DIR)
         else:
             failed_count_to = + 1
         success_count = success_count + success_count_ssh + success_count_telnet
