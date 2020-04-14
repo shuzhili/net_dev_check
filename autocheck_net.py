@@ -53,8 +53,10 @@ def Read_IP_UserName_Pwd(path):
     f = open(path)
     data = []
     for lines in f.readlines():
+        if lines.strip() == '':
+            continue
         print('---------lsz-----lines------'+str(lines))
-        (ip, name, pwd) = lines.split(" ")
+        (ip, name, pwd) = str(lines).split(" ")
         print('---------lsz-----(ip, name, pwd)------' + str((ip, name, pwd)))
         data.append((ip, name, pwd))
     f.close()
